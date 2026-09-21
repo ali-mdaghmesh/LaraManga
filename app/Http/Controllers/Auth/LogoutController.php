@@ -19,7 +19,7 @@ class LogoutController extends Controller
     {
         $user = $request->user(); 
         $this->logoutService->logout($user); 
-        $this->successResponse();
+        return $this->successResponse(message: "The user logout successsfully.");
     }
 
 
@@ -27,7 +27,7 @@ class LogoutController extends Controller
     {
         $user = $request->user(); 
         $this->logoutService->logoutAll($user); 
-        $this->successResponse();
+        return $this->successResponse(message: "The user logout successsfully from all devices.");
     }
 
 
