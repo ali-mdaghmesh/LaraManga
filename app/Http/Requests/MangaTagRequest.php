@@ -15,7 +15,7 @@ class MangaTagRequest extends FormRequest
     {
         return [
             'tag_ids' => 'required|array',
-            'tag_ids.*' => 'integger|distinct|exists:tags,id'
+            'tag_ids.*' => ['integer', 'distinct', 'exists:tags,id'],
         ];
     }
 }
