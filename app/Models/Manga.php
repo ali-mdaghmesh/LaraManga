@@ -25,4 +25,14 @@ class Manga extends Model implements HasMedia
         return $this->hasMany(Chapter::class); 
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'manga_tags');
+    }
+
+     public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('cover')->singleFile();
+    }
+
 }

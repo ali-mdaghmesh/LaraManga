@@ -27,4 +27,11 @@ class Chapter extends Model implements HasMedia
     function comments(){
         return $this->hasMany(Comment::class); 
     }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('chapters')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp']);
+    }
+
 }
