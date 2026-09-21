@@ -69,12 +69,19 @@ trait ApiResponseTrait
         return $this->errorResponse($message, 422, $errors);
     }
 
-    protected function paginatedResponse(LengthAwarePaginator $paginator, ?string $message = null): JsonResponse
-    {
+    protected function paginatedResponse(
+        LengthAwarePaginator $paginator,
+        ?string $resource = null,
+        ?string $message = null
+    ): JsonResponse {
+        $items = $resource
+            ? $resource::collection($paginator->getCollection())->resolve()
+            : $paginator->items();
+
         return response()->json([
             'success' => true,
             'message' => $message ?? 'Data retrieved successfully.',
-            'data'    => $paginator->items(),
+            'data'    => $items,
             'meta'    => [
                 'current_page' => $paginator->currentPage(),
                 'last_page'    => $paginator->lastPage(),
