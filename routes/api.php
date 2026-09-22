@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\LocalMangaController;
 use App\Http\Controllers\MangaTagController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TagController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,10 +21,12 @@ Route::get('mangas/{manga}/tags', [MangaTagController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [LogoutController::class, 'logout']); 
+    Route::post('/profile', [ProfileController::class, 'update']);
 });
 
 Route::middleware(['auth:sanctum','check.role:admin'])->prefix('admin')->group(function () {
 
+    Route::post('local-mangas/{localManga}', [LocalMangaController::class, 'update']); 
     Route::apiResource('local-mangas', LocalMangaController::class);
     Route::apiResource('tags', TagController::class);
 

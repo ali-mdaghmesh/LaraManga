@@ -18,6 +18,7 @@ class MangaResource extends JsonResource
             'description' => $this->description,
             'author_name' => $this->author_name,
             'artist_name' => $this->artist_name,
+            'cover_url' => $this->getFirstMediaUrl('cover'),
             'created_at' => $this->created_at,
             'chapters' => ChapterResource::collection($this->whenLoaded('chapters')),
         ];

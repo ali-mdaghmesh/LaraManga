@@ -13,7 +13,7 @@ class ProfileResource extends JsonResource
         return [
             'id' => $this->id,
             'user_id' => $this->user_id,
-            'name' => $this->full_name,
+            'full_name' => $this->full_name,
             'birthdate' => $this->birthdate,
             'avatar_url' => $this->getFirstMediaUrl('avatar'),
         ];

@@ -23,7 +23,7 @@ class LocalMangaController extends Controller
         $validatedData = $storeMangaRequest->validated(); 
         $manga = $this->localMangaService->createManga($validatedData); 
         return $this->createdResponse(
-            $manga,
+            new MangaResource($manga),
             'The manga created successfully.'
         );
     }
@@ -33,7 +33,7 @@ class LocalMangaController extends Controller
         $validatedData = $updateMangaRequest->validated(); 
         $manga = $this->localMangaService->editManga($validatedData, $localManga); 
         return $this->successResponse(
-            $manga,
+            new MangaResource($manga),
             'The manga updated successfully.'
         );
     }
@@ -47,7 +47,7 @@ class LocalMangaController extends Controller
     function index()
     {
         $mangas = $this->localMangaService->getAllMangas();
-        return $this->paginatedResponse($mangas);
+        return $this->paginatedResponse($mangas, MangaResource::class,"The manga List:");
     }
 
     function show(Manga $localManga){
