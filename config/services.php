@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'mangadex' => [
+    'base_url' => 'https://api.mangadex.org',
+    ],
+
 ];

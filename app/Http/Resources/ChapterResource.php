@@ -13,9 +13,11 @@ class ChapterResource extends JsonResource
         return [
             'id' => $this->id,
             'manga_id' => $this->manga_id,
+            'mangadex_id' => $this->mangadex_id,
             'chapter_number' => $this->chapter_number, 
             'title' => $this->title, 
             'uploaded_by' => $this->uploaded_by,
+            'chapter_url' => $this->getFirstMediaUrl('chapter'),
             'created_at' => $this->created_at
         ];
     }

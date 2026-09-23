@@ -6,17 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-   
     public function up(): void
     {
         Schema::create('chapters', function (Blueprint $table) {
             $table->id();
-            $table->foreignUuid('manga_id')->constrained()->cascadeOnDelete(); 
+            $table->foreignUuid('manga_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->string('mangadex_id')->nullable();
             $table->enum('source', ['local', 'mangaDex']);
-            $table->float('chapter_number'); 
-            $table->string('title')->nullable(); 
+            $table->float('chapter_number');
+            $table->string('title')->nullable();
             $table->foreignId('uploaded_by')->nullable()->constrained('users')->nullOnDelete();
-            $table->timestamps();   
+            $table->timestamps();
         });
     }
 

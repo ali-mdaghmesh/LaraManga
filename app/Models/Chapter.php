@@ -14,6 +14,7 @@ class Chapter extends Model implements HasMedia
 
     protected $fillable = [
         'manga_id', 
+        'mangadex_id', 
         'source',
         'chapter_number', 
         'title',
@@ -30,8 +31,9 @@ class Chapter extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('chapters')
-            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp']);
+        $this->addMediaCollection('chapter')
+            ->singleFile()
+            ->acceptsMimeTypes(['application/pdf']);
     }
 
 }
