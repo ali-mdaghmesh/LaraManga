@@ -4,6 +4,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ChapterController;
+use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\LocalMangaController;
 use App\Http\Controllers\MangaDexController;
 use App\Http\Controllers\MangaTagController;
@@ -30,6 +32,11 @@ Route::get('chapters/mangadex/{mangadexId}', [ChapterController::class, 'mangade
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [LogoutController::class, 'logout']); 
     Route::post('/profile', [ProfileController::class, 'update']);
+
+    Route::post('/like/toggle', [LikeController::class, 'toggle']); 
+
+    Route::post('/favorites/toggle', [FavoriteController::class, 'toggle']);
+    Route::get('/favorites', [FavoriteController::class, 'getFavorites']); 
 });
 
 Route::middleware(['auth:sanctum','check.role:admin'])->prefix('admin')->group(function () {
@@ -51,7 +58,7 @@ Route::middleware(['auth:sanctum','check.role:admin'])->prefix('admin')->group(f
 Route::prefix('mangadex')->group(function () {
     Route::get('search', [MangaDexController::class, 'search']);
     Route::get('manga/{mangadexId}', [MangaDexController::class, 'show']);
-    Route::get('manga/{mangadexId}/chapters', [MangaDexController::class, 'chapters']);
+   // Route::get('manga/{mangadexId}/chapters', [MangaDexController::class, 'chapters']);
     Route::get('chapter/{chapterId}/pages', [MangaDexController::class, 'chapterPages']);
 });
 

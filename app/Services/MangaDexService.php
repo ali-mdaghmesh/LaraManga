@@ -79,14 +79,14 @@ class MangaDexService
 
         return [
             'mangadex_id' => $manga['id'],
-            'title' => $attributes['title']['en']
+            'title' => $attributes['title']['ar']
                 ?? reset($attributes['title'])
                 ?? 'Untitled',
-            'description' => $attributes['description']['en'] ?? null,
+            'description' => $attributes['description']['ar'] ?? null,
             'status' => $attributes['status'],
             'year' => $attributes['year'],
             'tags' => collect($attributes['tags'])
-                ->map(fn ($tag) => $tag['attributes']['name']['en'] ?? null)
+                ->map(fn ($tag) => $tag['attributes']['name']['ar'] ?? null)    
                 ->filter()
                 ->values()
                 ->all(),

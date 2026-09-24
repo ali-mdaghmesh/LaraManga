@@ -11,14 +11,16 @@ class Favorite extends Model
 
     protected $fillable = [
         'user_id', 
-        'manga_id'
+        'manga_id',
+        'mangadex_id'
     ];
 
     function user(){
         return $this->belongsTo(User::class); 
     }
 
-    function manga(){
-        return $this->hasMany(Manga::class);
+    public function manga()
+    {
+        return $this->belongsTo(Manga::class);
     }
 }

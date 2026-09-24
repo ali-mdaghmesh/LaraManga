@@ -35,4 +35,6 @@ class Manga extends Model implements HasMedia
         $this->addMediaCollection('cover')->singleFile();
     }
 
+    
+
 }

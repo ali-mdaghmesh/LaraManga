@@ -13,13 +13,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignUuid('manga_id')->constrained()->cascadeOnDelete(); 
+            $table->string('mangadex_id')->nullable(); 
             $table->timestamps();
+            $table->unique(['user_id', 'manga_id']);
+            $table->unique(['user_id', 'mangadex_id']); 
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+
     public function down(): void
     {
         Schema::dropIfExists('likes');

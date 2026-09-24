@@ -12,8 +12,12 @@ return new class extends Migration
         Schema::create('favorites', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignUuid('manga_id')->constrained()->cascadeOnDelete(); 
+            $table->foreignUuid('manga_id')->nullable()->constrained()->cascadeOnDelete(); 
+            $table->string('mangadex_id')->nullable(); 
+
             $table->timestamps();
+            $table->unique(['user_id', 'manga_id']); 
+            $table->unique(['user_id', 'mangadex_id']); 
         });
     }
 

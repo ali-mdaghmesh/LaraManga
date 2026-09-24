@@ -12,7 +12,8 @@ class Like extends Model
 
     protected $fillable = [
         'user_id', 
-        'manga_id'
+        'manga_id',
+        'mangadex_id'
     ];
 
     public function manga(){
