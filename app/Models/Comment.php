@@ -12,6 +12,8 @@ class Comment extends Model
     protected $fillable = [
         'user_id', 
         'chapter_id',
+        'mangadex_chapter_id', 
+        'parent_id',
         'content'
     ];
 
@@ -21,5 +23,10 @@ class Comment extends Model
 
     function user(){
         return $this->belongsTo(User::class); 
+    }
+
+    public function replyComments()
+    {
+        return $this->hasMany(Comment::class, 'parent_id');
     }
 }

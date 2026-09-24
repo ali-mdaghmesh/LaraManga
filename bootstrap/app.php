@@ -38,7 +38,7 @@ return Application::configure(basePath: dirname(__DIR__))
             if ($request->is('api/*')) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Resource not found.',
+                    'message' => 'There is no such route.',
                 ], 404);
             }
         });

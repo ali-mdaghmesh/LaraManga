@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ChapterController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\LocalMangaController;
@@ -28,6 +29,10 @@ Route::get('chapters/{chapter}', [ChapterController::class, 'show']);
 
 Route::get('chapters/mangadex/{mangadexId}', [ChapterController::class, 'mangadexChaptersWithLocal']);
 
+Route::get('chapters/{chapter}/comments', [CommentController::class, 'getChapterComments']);
+Route::get('comments/{comment}/replies', [CommentController::class, 'getReplyComments']);
+Route::get('mangadex/chapters/{chapterId}/comments', [CommentController::class, 'getMangaDexChapterComments']);
+
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [LogoutController::class, 'logout']); 
@@ -37,6 +42,15 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/favorites/toggle', [FavoriteController::class, 'toggle']);
     Route::get('/favorites', [FavoriteController::class, 'getFavorites']); 
+
+    Route::prefix('comments')->group( function () {
+        Route::post('/', [CommentController::class, 'store']);
+        Route::put('/{comment}', [CommentController::class, 'update']);
+        Route::delete('/{comment}', [CommentController::class, 'destroy']);
+        Route::post('/{parent}/reply', [CommentController::class, 'replyOnComment']);
+    });
+
+   
 });
 
 Route::middleware(['auth:sanctum','check.role:admin'])->prefix('admin')->group(function () {
@@ -58,7 +72,6 @@ Route::middleware(['auth:sanctum','check.role:admin'])->prefix('admin')->group(f
 Route::prefix('mangadex')->group(function () {
     Route::get('search', [MangaDexController::class, 'search']);
     Route::get('manga/{mangadexId}', [MangaDexController::class, 'show']);
-   // Route::get('manga/{mangadexId}/chapters', [MangaDexController::class, 'chapters']);
     Route::get('chapter/{chapterId}/pages', [MangaDexController::class, 'chapterPages']);
 });
 
